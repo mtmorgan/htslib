@@ -22,15 +22,15 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-CC     = gcc
+CC     = $(shell "${R_HOME}/bin/R" CMD config CC)
 AR     = ar
 RANLIB = ranlib
 
 # TODO: edit cram code to remove need for -DSAMTOOLS
 CPPFLAGS = -I. -DSAMTOOLS=1
 # TODO: probably update cram code to make it compile cleanly with -Wc++-compat
-CFLAGS   = -g -Wall -O2
-EXTRA_CFLAGS_PIC = -fpic
+CFLAGS   = -g -Wall -Wno-unused-function -O2
+EXTRA_CFLAGS_PIC = $(shell "${R_HOME}/bin/R" CMD config CPICFLAGS)
 LDFLAGS  =
 LDLIBS   =
 
