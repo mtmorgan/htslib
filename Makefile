@@ -193,12 +193,16 @@ libhts.so: $(LIBHTS_OBJS:.o=.pico)
 	$(CC) -shared -Wl,-soname,libhts.so.$(LIBHTS_SOVERSION) -pthread $(LDFLAGS) -o $@ $(LIBHTS_OBJS:.o=.pico) $(LDLIBS) -lz -lm
 	ln -sf $@ libhts.so.$(LIBHTS_SOVERSION)
 
+# For Mac OSX Allow libraries that link to the htslib dylib find it
+# (where it is ultimately placed)
+DYLIB_INSTALL_NAME= ${R_PACKAGE_DIR}/lib/libhts.$(LIBHTS_SOVERSION).dylib
+
 # Similarly this also creates libhts.NN.dylib as a byproduct, so that programs
 # when run can find this uninstalled shared library (when $DYLD_LIBRARY_PATH
 # includes this project's build directory).
 
 libhts.dylib: $(LIBHTS_OBJS)
-	$(CC) -dynamiclib -install_name $(libdir)/libhts.$(LIBHTS_SOVERSION).dylib -current_version $(NUMERIC_VERSION) -compatibility_version $(LIBHTS_SOVERSION) $(LDFLAGS) -o $@ $(LIBHTS_OBJS) $(LDLIBS) -lz
+	$(CC) -dynamiclib -install_name $(DYLIB_INSTALL_NAME) -current_version $(NUMERIC_VERSION) -compatibility_version $(LIBHTS_SOVERSION) $(LDFLAGS) -o $@ $(LIBHTS_OBJS) $(LDLIBS) -lz
 	ln -sf $@ libhts.$(LIBHTS_SOVERSION).dylib
 
 
