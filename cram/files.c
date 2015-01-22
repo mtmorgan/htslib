@@ -29,9 +29,9 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "io_lib_config.h"
-#endif
+/* #ifdef HAVE_CONFIG_H */
+/* #include "io_lib_config.h" */
+/* #endif */
 
 #include "cram/misc.h"
 
