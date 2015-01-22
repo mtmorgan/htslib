@@ -23,7 +23,7 @@
    THE SOFTWARE.
 */
 
-#include "config.h"
+#include "bgzf_faidx_config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
