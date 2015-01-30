@@ -304,10 +304,12 @@ void hclose_abruptly(hFILE *fp)
 
 #include <sys/socket.h>
 #include <sys/stat.h>
+#include "stat-size.h"
 #include <fcntl.h>
 #include <unistd.h>
 
 #ifdef _WIN32
+#include <io.h>
 #define HAVE_CLOSESOCKET
 #endif
 
@@ -389,7 +391,8 @@ static size_t blksize(int fd)
 {
     struct stat sbuf;
     if (fstat(fd, &sbuf) != 0) return 0;
-    return sbuf.st_blksize;
+    /* Gnulib makes a macro that automatically Does The Right Thing */
+    return ST_BLKSIZE(sbuf);
 }
 
 static hFILE *hopen_fd(const char *filename, const char *mode)
@@ -426,7 +429,10 @@ hFILE *hdopen(int fd, const char *mode)
 static hFILE *hopen_fd_stdinout(const char *mode)
 {
     int fd = (strchr(mode, 'r') != NULL)? STDIN_FILENO : STDOUT_FILENO;
-    // TODO Set binary mode (for Windows)
+    #ifdef _WIN32
+    _setmode(fd, _O_BINARY);
+    #endif
+    // TODO Set binary mode (for Windows) [from htslib authors]
     return hdopen(fd, mode);
 }
 

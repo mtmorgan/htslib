@@ -294,7 +294,12 @@ extern "C" {
 #      define ftello _ftelli64
 #    else
        /* otherwise we're stuck with 32-bit file support */
-#      define off_t long
+
+/* defining off_t as a macro prevents gnulib sys/types.h doing the
+ * right thing. Same issue in unrelated package on sourceforge:
+ * http://sourceforge.net/p/faac/bugs/172/ */
+
+/*#      define off_t long*/
 #      define fseeko fseek
 #      define ftello ftell
 #    endif

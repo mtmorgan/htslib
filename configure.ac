@@ -1,28 +1,33 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.68])
-AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+AC_PREREQ([2.67])
+AC_INIT([HTSlib], [VERSION], [BUG-REPORT-ADDRESS])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([synced_bcf_reader.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
+gl_EARLY
+gl_INIT
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_RANLIB
 AC_PROG_MKDIR_P
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lm':
-AC_CHECK_LIB([m], [main])
-# FIXME: Replace `main' with a function in `-lz':
-AC_CHECK_LIB([z], [main])
+AC_CHECK_LIB([m], [cos])
+AC_CHECK_LIB([z], [inflate])
 AC_SEARCH_LIBS([pthread_create], [pthread])
 
 # Checks for header files.
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h inttypes.h limits.h netdb.h stddef.h stdint.h stdlib.h string.h sys/socket.h sys/time.h unistd.h])
+
+# Use the following gnulib import statement (limits is not a module):
+# gnulib-tool --import alloca arpa_inet fcntl fdatasync inttypes netdb stat-size stddef stdint stdlib string sys_select sys_socket sys_stat sys_time unistd recv send
+AC_CHECK_HEADERS([alloca.h arpa/inet.h fcntl.h inttypes.h limits.h \
+netdb.h stddef.h stdint.h stdlib.h string.h sys/select.h sys/socket.h \
+sys/stat.h sys/time.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
@@ -50,5 +55,6 @@ AC_FUNC_STRTOD
 AC_CHECK_FUNCS([atexit fdatasync floor ftruncate getcwd gethostbyaddr gethostbyname getpagesize gettimeofday memmove memset mkdir select socket strcasecmp strchr strdup strerror strrchr strstr strtol strtoul])
 
 AC_CONFIG_FILES([Makefile
-                 test/Makefile])
+                 test/Makefile
+                 lib/Makefile])
 AC_OUTPUT

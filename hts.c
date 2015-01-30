@@ -30,6 +30,7 @@ DEALINGS IN THE SOFTWARE.  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <alloca.h>
 #include <limits.h>
 #include <fcntl.h>
 #include <errno.h>

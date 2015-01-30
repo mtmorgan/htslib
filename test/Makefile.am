@@ -1,8 +1,8 @@
 check_PROGRAMS = fieldarith hfile sam test-regidx test_view \
 		 test-vcf-api test-vcf-sweep
 
-TESTCPPFLAGS = -I$(top_srcdir)/htslib
-TESTLDADD = $(top_srcdir)/libhts.a
+TESTCPPFLAGS = -I$(top_srcdir)/htslib -I$(top_srcdir)/lib -I$(top_srcdir)/cram
+TESTLDADD = $(top_srcdir)/libhts.a $(top_srcdir)/lib/libgnu.a $(LIBSOCKET) $(LIB_FDATASYNC)
 
 fieldarith_SOURCES = fieldarith.c
 fieldarith_CPPFLAGS = $(TESTCPPFLAGS)

@@ -35,39 +35,29 @@ cram/thread_pool.c \
 cram/vlen.c \
 cram/zfio.c
 
-libhts_a_CPPFLAGS = -Ihtslib -Icram
+libhts_a_CPPFLAGS = -Ihtslib -Icram $(AM_CPPFLAGS)
+libhts_a_LIBADD = lib/libgnu.a
+#libhts_a_LDFLAGS = $(LIBSOCKET) $(LIB_FDATASYNC)
 
 bin_PROGRAMS = bgzip htsfile tabix
 
-bgzip_CPPFLAGS = -Ihtslib
-bgzip_LDADD = libhts.a
+AM_CPPFLAGS = -I$(top_srcdir)/lib
+AM_LDADD = $(top_srcdir)/lib/libgnu.a $(LIBSOCKET) $(LIB_FDATASYNC)
+
+bgzip_CPPFLAGS = -I$(top_srcdir)/htslib $(AM_CPPFLAGS)
+bgzip_LDADD = $(top_srcdir)/libhts.a $(AM_LDADD)
 bgzip_SOURCES = bgzip.c
 
-htsfile_CPPFLAGS = -Ihtslib
-htsfile_LDADD = libhts.a
+htsfile_CPPFLAGS = -Ihtslib $(AM_CPPFLAGS)
+htsfile_LDADD = libhts.a $(AM_LDADD)
 htsfile_SOURCES = htsfile.c
 
-tabix_CPPFLAGS = -Ihtslib
-tabix_LDADD = libhts.a
+tabix_CPPFLAGS = -Ihtslib $(AM_CPPFLAGS)
+tabix_LDADD = libhts.a $(AM_LDADD)
 tabix_SOURCES = tabix.c
 
-SUBDIRS = test
+SUBDIRS = lib test
+ACLOCAL_AMFLAGS = -I m4
+EXTRA_DIST = m4/gnulib-cache.m4
 
 TESTS = run_tests.sh
-
-# run_tests.sh:
-# 	echo "\
-# 	test/fieldarith test/fieldarith.sam ; \
-# 	test/hfile ; \
-# 	test/sam ; \
-# 	test/test-regidx ; \
-# 	cd test && ./test_view.pl ; \
-# 	./test.pl ; \ " > run_tests.sh
-# 	chmod +x run_tests.sh
-
-# CLEANFILES = run_tests.sh
-
-# noinst_SCRIPTS = version.sh
-
-# version.sh:
-# 	echo "#define HTS_VERSION \"`git describe --always --dirty`\" > version.h

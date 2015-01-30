@@ -1072,6 +1072,11 @@ int sam_format1(const bam_hdr_t *h, const bam1_t *b, kstring_t *str)
 
 int sam_write1(htsFile *fp, const bam_hdr_t *h, const bam1_t *b)
 {
+    /* By default, Windows outputs three digits for exponent in
+     * scientific notation for printf-like functions. */
+    #ifdef _WIN32
+    _set_output_format(_TWO_DIGIT_EXPONENT);
+    #endif
     switch (fp->format.format) {
     case binary_format:
         fp->format.category = sequence_data;

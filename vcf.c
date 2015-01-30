@@ -32,6 +32,7 @@ DEALINGS IN THE SOFTWARE.  */
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <alloca.h>
 #include <limits.h>
 #include "htslib/kstring.h"
 #include "htslib/bgzf.h"

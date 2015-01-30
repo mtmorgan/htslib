@@ -3,6 +3,19 @@
 *-uninstalled.pc
 /version.h
 
+autom4te.cache
+config.guess
+config.sub
+config.h
+config.h.in
+config.log
+config.status
+configure
+depcomp
+install-sh
+Makefile
+/.deps
+
 lib*.a
 lib*.dylib
 lib*.so

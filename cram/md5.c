@@ -34,7 +34,7 @@
  * optimizations are not included to reduce source code size and avoid
  * compile-time configuration.
  */
- 
+
 #ifndef HAVE_OPENSSL
  
 #include <string.h>

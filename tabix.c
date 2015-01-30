@@ -320,7 +320,13 @@ int reheader_file(const char *fname, const char *header, int ftype, tbx_conf_t *
         FILE *hdr  = fopen(header,"r");
         if ( !hdr ) error("%s: %s", header,strerror(errno));
         int page_size = getpagesize();
+        /* FIX ME: stopgap because valloc missing on Windows; valloc
+         * actually deprecated on Linux */
+        #ifdef __MINGW32__
+        char *buf = malloc(page_size);
+        #else
         char *buf = valloc(page_size);
+        #endif
         BGZF *bgzf_out = bgzf_dopen(fileno(stdout), "w");
         ssize_t nread;
         while ( (nread=fread(buf,1,page_size-1,hdr))>0 )

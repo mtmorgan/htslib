@@ -22,7 +22,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.  */
 
+#include "config.h"
+
 #include <stdio.h>
+#ifdef _WIN32
+#include <io.h>
+#include <fcntl.h>
+#endif
+
 #include <htslib/hts.h>
 #include <htslib/vcf.h>
 #include <htslib/kstring.h>
@@ -273,6 +280,10 @@ void iterator(const char *fname)
 
 int main(int argc, char **argv)
 {
+    #ifdef _WIN32
+    _setmode(_fileno(stdout), _O_BINARY);
+    #endif
+
     char *fname = argc>1 ? argv[1] : "rmme.bcf";
     write_bcf(fname);
     bcf_to_vcf(fname);
