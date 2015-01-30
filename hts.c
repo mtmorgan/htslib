@@ -39,7 +39,8 @@ DEALINGS IN THE SOFTWARE.  */
 #include "htslib/hts.h"
 #include "cram/cram.h"
 #include "htslib/hfile.h"
-#include "version.h"
+/* FIX ME: get version.h working with autotools */
+/*#include "version.h"*/
 
 #include "htslib/kseq.h"
 #define KS_BGZF 1
