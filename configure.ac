@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.67])
 AC_INIT([HTSlib], [VERSION], [BUG-REPORT-ADDRESS])
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([synced_bcf_reader.c])
 AC_CONFIG_HEADERS([config.h])
 
