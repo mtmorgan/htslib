@@ -17,9 +17,33 @@ AC_PROG_RANLIB
 AC_PROG_MKDIR_P
 
 # Checks for libraries.
-AC_CHECK_LIB([m], [cos])
-AC_CHECK_LIB([z], [inflate])
 AC_SEARCH_LIBS([pthread_create], [pthread])
+AC_CHECK_LIB([m], [cos])
+
+dnl allow arbitrary zlib name and test function
+zlib_name=z
+AC_ARG_WITH([zlib-name],
+    [AS_HELP_STRING([--with-zlib-name=ZNAME], [use zlib named ZNAME])],
+    [case x$withval in
+        xno)  AC_MSG_WARN([HTSlib requires zlib; using default zlib name]) ;;
+        xyes) ;;
+        x)    ;;
+        *)    zlib_name="$withval" ;;
+     esac]
+)
+
+zlib_testfunc=zlibVersion
+AC_ARG_WITH([zlib-testfunc],
+    [AS_HELP_STRING([--with-zlib-testfunc=ZTESTFUNC],
+        [use ZTESTFUNC to test presence of zlib])],
+    [case x$withval in
+        xno)  AC_MSG_WARN([using default test function to probe $zlib_name]) ;;
+        xyes) ;;
+        x)    ;;
+        *)    zlib_testfunc="$withval" ;;
+     esac]
+)
+AC_CHECK_LIB([$zlib_name], [$zlib_testfunc])
 
 # Checks for header files.
 
