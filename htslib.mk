@@ -122,28 +122,3 @@ HTSLIB_ALL = \
 	$(HTSDIR)/cram/vlen.h \
 	$(HTSDIR)/cram/zfio.c \
 	$(HTSDIR)/cram/zfio.h
-
-# $(HTSDIR)/libhts.a: $(HTSLIB_ALL)
-# 	+cd $(HTSDIR) && $(MAKE) lib-static
-
-# $(HTSDIR)/libhts.so $(HTSDIR)/libhts.dylib: $(HTSLIB_ALL)
-# 	+cd $(HTSDIR) && $(MAKE) lib-shared
-
-# $(HTSDIR)/bgzip: $(HTSDIR)/bgzip.c $(HTSLIB_PUBLIC_HEADERS)
-# 	+cd $(HTSDIR) && $(MAKE) bgzip
-
-# $(HTSDIR)/htsfile: $(HTSDIR)/htsfile.c $(HTSLIB_PUBLIC_HEADERS)
-# 	+cd $(HTSDIR) && $(MAKE) htsfile
-
-# $(HTSDIR)/tabix: $(HTSDIR)/tabix.c $(HTSLIB_PUBLIC_HEADERS)
-# 	+cd $(HTSDIR) && $(MAKE) tabix
-
-# Rules for phony targets.  You may wish to have your corresponding phony
-# targets invoke these in addition to their own recipes:
-#
-#	clean: clean-htslib
-
-clean-htslib install-htslib:
-	+cd $(HTSDIR) && $(MAKE) $(@:-htslib=)
-
-.PHONY: clean-htslib install-htslib
