@@ -1,5 +1,4 @@
 /.deps
-Makefile.in
 alloca.h
 arg-nonnull.h
 arpa/inet.h
