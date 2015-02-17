@@ -3,6 +3,7 @@ alloca.h
 arg-nonnull.h
 arpa/inet.h
 c++defs.h
+errno.h
 fcntl.h
 inttypes.h
 netdb.h
