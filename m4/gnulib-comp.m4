@@ -55,6 +55,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module fileblocks:
   # Code from module fsync:
   # Code from module getdtablesize:
+  # Code from module getpagesize:
   # Code from module gettimeofday:
   # Code from module include_next:
   # Code from module inttypes:
@@ -149,6 +150,11 @@ AC_DEFUN([gl_INIT],
     gl_PREREQ_GETDTABLESIZE
   fi
   gl_UNISTD_MODULE_INDICATOR([getdtablesize])
+  gl_FUNC_GETPAGESIZE
+  if test $REPLACE_GETPAGESIZE = 1; then
+    AC_LIBOBJ([getpagesize])
+  fi
+  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETTIMEOFDAY
   if test $HAVE_GETTIMEOFDAY = 0 || test $REPLACE_GETTIMEOFDAY = 1; then
     AC_LIBOBJ([gettimeofday])
@@ -359,6 +365,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/fileblocks.c
   lib/fsync.c
   lib/getdtablesize.c
+  lib/getpagesize.c
   lib/gettimeofday.c
   lib/inttypes.in.h
   lib/msvc-inval.c
@@ -402,6 +409,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/fileblocks.m4
   m4/fsync.m4
   m4/getdtablesize.m4
+  m4/getpagesize.m4
   m4/gettimeofday.m4
   m4/gnulib-common.m4
   m4/include_next.m4
