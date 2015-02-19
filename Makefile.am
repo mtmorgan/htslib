@@ -1,5 +1,10 @@
 lib_LIBRARIES = libhts.a
 
+# allows 'make (bgzip|htsfile|tabix|libhts.a)' instead of relying on
+# making all
+lib/libgnu.a:
+	cd ./lib && $(MAKE) $(AM_MAKEFLAGS) && cd ..
+
 libhts_a_SOURCES = \
 kfunc.c \
 knetfile.c \
