@@ -41,7 +41,7 @@ cram/vlen.c \
 cram/zfio.c
 
 libhts_a_CPPFLAGS = -Ihtslib -Icram $(AM_CPPFLAGS)
-libhts_a_LIBADD = lib/libgnu.a $(LIBSOCKET) $(LIB_FDATASYNC) 
+libhts_a_LIBADD = lib/libgnu.a #$(LIBSOCKET) $(LIB_FDATASYNC) 
 
 bin_PROGRAMS = bgzip htsfile tabix
 
