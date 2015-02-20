@@ -41,22 +41,19 @@ cram/vlen.c \
 cram/zfio.c
 
 libhts_a_CPPFLAGS = -Ihtslib -Icram $(AM_CPPFLAGS)
-libhts_a_LIBADD = lib/libgnu.a #$(LIBSOCKET) $(LIB_FDATASYNC) 
+libhts_a_LIBADD = lib/libgnu.a #$(LIBSOCKET) $(LIB_FDATASYNC)
 
 bin_PROGRAMS = bgzip htsfile tabix
 
-AM_CPPFLAGS = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/htslib
 AM_LDADD = $(top_srcdir)/lib/libgnu.a $(LIBSOCKET) $(LIB_FDATASYNC)
 
-bgzip_CPPFLAGS = -I$(top_srcdir)/htslib $(AM_CPPFLAGS)
 bgzip_LDADD = $(top_srcdir)/libhts.a $(AM_LDADD)
 bgzip_SOURCES = bgzip.c
 
-htsfile_CPPFLAGS = -Ihtslib $(AM_CPPFLAGS)
 htsfile_LDADD = libhts.a $(AM_LDADD)
 htsfile_SOURCES = htsfile.c
 
-tabix_CPPFLAGS = -Ihtslib $(AM_CPPFLAGS)
 tabix_LDADD = libhts.a $(AM_LDADD)
 tabix_SOURCES = tabix.c
 
