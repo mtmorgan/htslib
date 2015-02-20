@@ -41,7 +41,14 @@ cram/vlen.c \
 cram/zfio.c
 
 libhts_a_CPPFLAGS = -Ihtslib -Icram $(AM_CPPFLAGS)
-libhts_a_LIBADD = lib/libgnu.a #$(LIBSOCKET) $(LIB_FDATASYNC)
+
+# HACK: this should change once we make libtool libraries instead;
+# forcing object files that get archived into libgnu.a to be included
+# *directly*. lib/libgnu.a is mentioned to force the dependency to
+# build first. Instead we'll want to use libhts_la_LDFLAGS
+libhts_a_LIBADD = lib/libgnu.a $(shell ls lib/*.$(OBJEXT))
+#$(LIBSOCKET) $(LIB_FDATASYNC)
+
 
 bin_PROGRAMS = bgzip htsfile tabix
 
