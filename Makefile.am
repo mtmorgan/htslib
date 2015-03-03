@@ -1,7 +1,7 @@
 lib_LIBRARIES = libhts.a
 
 # allows 'make (bgzip|htsfile|tabix|libhts.a)' instead of relying on
-# making all
+# making all.
 lib/libgnu.a:
 	cd ./lib && $(MAKE) $(AM_MAKEFLAGS) && cd ..
 
