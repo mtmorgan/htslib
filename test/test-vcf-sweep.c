@@ -22,11 +22,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.  */
 
+#include "config.h"
+
 #include <stdio.h>
+#ifdef _WIN32
+#include <io.h>
+#include <fcntl.h>
+#endif
+
 #include <htslib/vcf_sweep.h>
 
 int main(int argc, char **argv)
 {
+    #ifdef _WIN32
+    _setmode(_fileno(stdout), _O_BINARY);
+    #endif
+
     if ( argc!=2 )
     {
         fprintf(stderr,"Usage: test-vcf-sweep <file.bcf|file.vcf>\n");

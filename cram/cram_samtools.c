@@ -28,6 +28,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "config.h"
+
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
@@ -112,7 +114,10 @@ int bam_construct_seq(bam_seq_t **bp, size_t extra_len,
     if (i < len)
 	*cp++ = L[(uc)seq[i]]<<4;
 
-    memcpy(cp, qual, len);
+    if (qual)
+	memcpy(cp, qual, len);
+    else
+	memset(cp, '\xff', len);
 
     return 0;
 }

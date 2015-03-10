@@ -225,10 +225,12 @@ extern "C" {
  */
 #ifdef SP_BIG_ENDIAN
 #define le_int4(x) iswap_int4((x))
+#define le_int2(x) iswap_int2((x))
 #endif
 
 #ifdef SP_LITTLE_ENDIAN
 #define le_int4(x) (x)
+#define le_int2(x) (x)
 #endif
 
 /*-----------------------------------------------------------------------------
@@ -292,7 +294,12 @@ extern "C" {
 #      define ftello _ftelli64
 #    else
        /* otherwise we're stuck with 32-bit file support */
-#      define off_t long
+
+/* defining off_t as a macro prevents gnulib sys/types.h doing the
+ * right thing. Same issue in unrelated package on sourceforge:
+ * http://sourceforge.net/p/faac/bugs/172/ */
+
+/*#      define off_t long*/
 #      define fseeko fseek
 #      define ftello ftell
 #    endif

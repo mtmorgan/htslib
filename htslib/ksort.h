@@ -64,6 +64,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef __MINGW32__
+#define drand48() (rand()*(1./RAND_MAX))
+#endif
+
 typedef struct {
 	void *left, *right;
 	int depth;

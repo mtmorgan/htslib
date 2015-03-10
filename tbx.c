@@ -23,6 +23,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.  */
 
+#include "config.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -280,6 +282,11 @@ tbx_t *tbx_index_load(const char *fn)
         return NULL;
     }
     meta = hts_idx_get_meta(tbx->idx, &l_meta);
+    if ( !meta )
+    {
+        free(tbx);
+        return NULL;
+    }
     memcpy(x, meta, 28);
     memcpy(&tbx->conf, x, 24);
     p = nm = (char*)meta + 28;

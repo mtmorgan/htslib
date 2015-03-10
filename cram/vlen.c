@@ -62,9 +62,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef HAVE_CONFIG_H
-#include "io_lib_config.h"
-#endif
+/* #ifdef HAVE_CONFIG_H */
+/* #include "io_lib_config.h" */
+/* #endif */
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -238,7 +239,7 @@ int vflen(char *fmt, va_list ap)
 		 * Note that %10c and %.10c act differently.
 		 * Besides, I think precision is not really allowed for %c.
 		 */
-		len += MAX(conv_len1, 1);
+		len += MAX(conv_len1, i>=0x80 ?MB_CUR_MAX :1);
 		break;
 
 	    case 'f':
